@@ -271,7 +271,7 @@ void a(struct flat *root, int counter){
         actual = source->link;
     }
 
-    printf("Zmenilo sa %d zaznamov\n", changed);
+    printf("Aktualizovalo sa %d zaznamov\n", changed);
 }
 
 void k(struct flat *root, int counter){
