@@ -239,7 +239,7 @@ void a(struct flat *root, int counter){
 
 
     getchar();
-    fgets(placeToChange, 51, stdin); //nacitanie novych hodnot
+    fgets(placeToChange, 51, stdin);
     fgets(categoryRead, 51, stdin);
     fgets(placeRead, 51, stdin);
     fgets(streetRead, 51, stdin);
@@ -247,18 +247,18 @@ void a(struct flat *root, int counter){
     fscanf(stdin, "%d\n", &priceRead);
     fgets(descriptionRead, 51, stdin);
 
-    for (i = 1; i <= counter; i++){ //iteracia cez linked list
+    for (i = 1; i <= counter; i++){
         if (i == 1){
             source = root;
         } else{
             source = actual;
         }
 
-        lower(placeToChange); //osetrenie case sensitivity
+        lower(placeToChange);
         strcpy(temp, source->place);
         lower(temp);
 
-        if (strstr(temp, placeToChange) != NULL){ //hladanie prvku
+        if (strstr(temp, placeToChange) != NULL){
             strcpy(source->category, categoryRead);
             strcpy(source->place, placeRead);
             strcpy(source->street, streetRead);
@@ -272,6 +272,23 @@ void a(struct flat *root, int counter){
     }
 
     printf("Zmenilo sa %d zaznamov\n", changed);
+}
+
+void k(struct flat *root, int counter){
+    int i;
+    struct flat *source = NULL;
+    struct flat *actual = NULL;
+
+    for (i = 1; i <= counter; i++) {
+        if (i == 1) {
+            source = root;
+        } else {
+            source = actual;
+        }
+
+        actual = source->link;
+        free(source);
+    }
 }
 
 int main() {
@@ -305,6 +322,9 @@ int main() {
                 break;
             case 'k':
                 bool = 0;
+                if (root != NULL){
+                    k(root, counter);
+                }
                 break;
         }
     }
