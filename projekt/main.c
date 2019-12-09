@@ -92,8 +92,53 @@ void v(struct flat *root, int counter){
     printf("\n");
 }
 
-void p(){
-    printf("Prida prvok do linked listu\n");
+void p(struct flat *root, int counter){
+    int index, areaRead, priceRead, i, isGreater = 0;
+    char categoryRead[51];
+    char placeRead[51];
+    char streetRead[101];
+    char descriptionRead[201];
+    struct flat *source = NULL;
+    struct flat *actual = NULL;
+    struct flat *helper = NULL;
+
+    scanf("%d", &index);
+    getchar();
+    fgets(categoryRead, 51, stdin);
+    fgets(placeRead, 51, stdin);
+    fgets(streetRead, 51, stdin);
+    fscanf(stdin, "%d\n", &areaRead);
+    fscanf(stdin, "%d\n", &priceRead);
+    fgets(descriptionRead, 51, stdin);
+
+    if (index > counter){
+        index = counter;
+        isGreater = 1;
+    }
+
+    for (i = 1; i < index; i++){
+        if (i == 1){
+            source = root;
+        } else{
+            source = actual;
+        }
+        actual = source->link;
+    }
+
+    helper = (struct flat *)malloc(sizeof(struct flat));
+    source->link = helper;
+    strcpy(helper->category, categoryRead);
+    strcpy(helper->place, placeRead);
+    strcpy(helper->street, streetRead);
+    helper->area = areaRead;
+    helper->price = priceRead;
+    strcpy(helper->description, descriptionRead);
+
+    if (isGreater == 0){
+        helper->link = actual;
+    } else{
+        helper->link = NULL;
+    }
 }
 
 void z(){
@@ -125,7 +170,8 @@ int main() {
                 v(root, counter);
                 break;
             case 'p':
-                p();
+                p(root, counter);
+                counter++;
                 break;
             case 'z':
                 z();
