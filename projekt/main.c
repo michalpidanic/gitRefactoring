@@ -67,8 +67,29 @@ struct flat *n(int *pCounter){
     return root;
 }
 
-void v(){
-    printf("Vypise zaznamy\n");
+void v(struct flat *root, int counter){
+    int i;
+    struct flat *source = NULL;
+    struct flat *actual = NULL;
+
+    for (i = 1; i <= counter; i++){
+        printf("%d.\n", i);
+
+        if (i == 1){
+            source = root;
+        } else{
+            source = actual;
+        }
+
+        printf("kategoria ponuky: %s", source->category);
+        printf("miesto ponuky: %s", source->place);
+        printf("ulica: %s", source->street);
+        printf("rozloha v m2: %d\n", source->area);
+        printf("cena: %d\n", source->price);
+        printf("popis: %s", source->description);
+        actual = source->link;
+    }
+    printf("\n");
 }
 
 void p(){
@@ -101,7 +122,7 @@ int main() {
                 root = n(&counter);
                 break;
             case 'v':
-                v();
+                v(root, counter);
                 break;
             case 'p':
                 p();
