@@ -141,8 +141,45 @@ void p(struct flat *root, int counter){
     }
 }
 
-void z(){
-    printf("Zmaze prvok v linked liste\n");
+struct flat *z(struct flat *root, int counter, int *pCounter){
+    char placeRead[51];
+    char temp[51];
+    int i, deleted = 0;
+    struct flat *source = NULL;
+    struct flat *actual = NULL;
+    struct flat *last = NULL;
+
+    getchar();
+    fgets(placeRead, 51, stdin);
+
+    for (i = 1; i <= counter; i++){
+        if (i == 1){
+            source = root;
+        } else{
+            source = actual;
+        }
+
+        strcpy(temp, source->place);
+
+        if (strstr(temp, placeRead) != NULL){
+            actual = source->link;
+            if (source == root){
+                root = source->link;
+            } else{
+                last->link = actual;
+            }
+            deleted++;
+        } else{
+            actual = source->link;
+        }
+
+        last = source;
+    }
+
+    printf("Vymazalo sa %d zaznamov.\n", deleted);
+    counter -= deleted;
+    *pCounter = counter;
+    return root;
 }
 
 void h(){
@@ -174,7 +211,7 @@ int main() {
                 counter++;
                 break;
             case 'z':
-                z();
+                root = z(root, counter, &counter);
                 break;
             case 'h':
                 h();
