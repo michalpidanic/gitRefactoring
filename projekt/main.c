@@ -13,6 +13,17 @@ typedef struct flat {
     struct flat *link;
 }FLAT;
 
+void lower(char s[]) {
+    int i = 0;
+
+    while (s[i] != '\0') {
+        if (s[i] >= 'A' && s[i] <= 'Z') {
+            s[i] = s[i] + 32;
+        }
+        i++;
+    }
+}
+
 struct flat *n(int *pCounter){
     struct flat *root = NULL;
     struct flat *actual = NULL;
@@ -160,6 +171,8 @@ struct flat *z(struct flat *root, int counter, int *pCounter){
         }
 
         strcpy(temp, source->place);
+        lower(temp);
+        lower(placeRead);
 
         if (strstr(temp, placeRead) != NULL){
             actual = source->link;
