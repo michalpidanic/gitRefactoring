@@ -226,8 +226,52 @@ void h(struct flat *root, int counter){
     }
 }
 
-void a(){
-    printf("Aktualizuje zaznam\n");
+void a(struct flat *root, int counter){
+    int changed = 0, i, areaRead, priceRead;
+    char temp[51];
+    char placeRead[51];
+    char placeToChange[51];
+    char categoryRead[51];
+    char streetRead[101];
+    char descriptionRead[201];
+    struct flat *source = NULL;
+    struct flat *actual = NULL;
+
+
+    getchar();
+    fgets(placeToChange, 51, stdin); //nacitanie novych hodnot
+    fgets(categoryRead, 51, stdin);
+    fgets(placeRead, 51, stdin);
+    fgets(streetRead, 51, stdin);
+    fscanf(stdin, "%d\n", &areaRead);
+    fscanf(stdin, "%d\n", &priceRead);
+    fgets(descriptionRead, 51, stdin);
+
+    for (i = 1; i <= counter; i++){ //iteracia cez linked list
+        if (i == 1){
+            source = root;
+        } else{
+            source = actual;
+        }
+
+        lower(placeToChange); //osetrenie case sensitivity
+        strcpy(temp, source->place);
+        lower(temp);
+
+        if (strstr(temp, placeToChange) != NULL){ //hladanie prvku
+            strcpy(source->category, categoryRead);
+            strcpy(source->place, placeRead);
+            strcpy(source->street, streetRead);
+            source->area = areaRead;
+            source->price = priceRead;
+            strcpy(source->description, descriptionRead);
+            changed++;
+        }
+
+        actual = source->link;
+    }
+
+    printf("Zmenilo sa %d zaznamov\n", changed);
 }
 
 int main() {
@@ -257,7 +301,7 @@ int main() {
                 h(root, counter);
                 break;
             case 'a':
-                a();
+                a(root, counter);
                 break;
             case 'k':
                 bool = 0;
