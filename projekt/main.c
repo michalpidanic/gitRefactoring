@@ -195,8 +195,35 @@ struct flat *z(struct flat *root, int counter, int *pCounter){
     return root;
 }
 
-void h(){
-    printf("Vyhlada a vypise prvky s mensou cenou");
+void h(struct flat *root, int counter){
+    int priceRead, i, printCounter = 0;
+    struct flat *source = NULL;
+    struct flat *actual = NULL;
+
+    getchar();
+    scanf("%d", &priceRead);
+
+    for (i = 1; i <= counter; i++){
+        if (i == 1){
+            source = root;
+        } else{
+            source = actual;
+        }
+
+        if (source->price <= priceRead){
+            printCounter++;
+
+            printf("%d.\n", printCounter);
+            printf("kategoria ponuky: %s", source->category);
+            printf("miesto ponuky: %s", source->place);
+            printf("ulica: %s", source->street);
+            printf("rozloha v m2: %d\n", source->area);
+            printf("cena: %d\n", source->price);
+            printf("popis: %s", source->description);
+        }
+
+        actual = source->link;
+    }
 }
 
 void a(){
@@ -227,7 +254,7 @@ int main() {
                 root = z(root, counter, &counter);
                 break;
             case 'h':
-                h();
+                h(root, counter);
                 break;
             case 'a':
                 a();
