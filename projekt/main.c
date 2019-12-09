@@ -302,7 +302,12 @@ int main() {
 
         switch (function) { //znak zo vstupu je zistovany pomocou switch, na zaklade nacitaneho znaku sa vykona jedna z funkcii vyssie
             case 'n':
-                root = n(&counter);
+                if (root != NULL){
+                    k(root, counter);
+                    root = n(&counter);
+                } else{
+                    root = n(&counter);
+                }
                 break;
             case 'v':
                 v(root, counter);
